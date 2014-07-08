@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <vector>
 #include <utility>
 #include <limits>
 #include <boost/optional.hpp>

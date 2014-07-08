@@ -5,7 +5,7 @@ CXX = g++
 CFLAGS = -Wall -O3
 CPPFLAGS = $(CFLAGS) --std=c++1y
 LINKFLAG = -lstdc++ -lboost_filesystem -lboost_system
-SRC = main.cpp gpx.cpp
+SRC = main.cpp gpx.cpp option.cpp
 OBJ = $(SRC:.cpp=.o)
 
 $(PROG): $(OBJ)
@@ -15,5 +15,6 @@ clean:
 	rm -vf *.o $(PROG)
 
 gpx.o: gpx.hpp include.hpp trackdata.hpp
-main.o: make_unique.hpp include.hpp gpx.hpp trackdata.hpp
+main.o: make_unique.hpp include.hpp gpx.hpp trackdata.hpp option.hpp
+option.o: include.hpp option.hpp
 gpx.hpp: trackdata.hpp
