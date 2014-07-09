@@ -28,7 +28,7 @@ b::optional<Option> parse_option(int argc, char **argv){
                 
                 crr = &ret.files.back();
             }else{
-                s::cerr << "Err: " << optarg << " doesn't exist" << s::endl;
+                s::cerr << "Err: " << optarg << " isn't file" << s::endl;
                 return {};
             }
             break;
