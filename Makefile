@@ -1,4 +1,4 @@
-PROG = PermanentWay
+PROG = permanentway
 
 CC = gcc
 CXX = g++
