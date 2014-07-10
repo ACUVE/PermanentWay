@@ -2,3 +2,8 @@ permanentway
 *.o
 *.s
 *.swp
+
+Makefile
+CMakeCache.txt
+CMakeFiles/*
+*.cmake
