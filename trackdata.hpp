@@ -4,11 +4,24 @@
 #include "include.hpp"
 #include <vector>
 
+struct DateTime{
+    // 紀元前か否か
+    bool isBC;
+    // 年、月、日（4294967296年以降は知らん）
+    // 時、分、秒
+    // ナノ秒
+    unsigned int year, month, date;
+    unsigned int hour, minute, second;
+    unsigned int nanosecond;
+};
+
 struct Point{
-    // 緯度,経度
+    // 緯度,経度（度数法）
     double lat = 0.0, lon = 0.0;
     // 高さ
     double ele = s::numeric_limits<double>::quiet_NaN();
+    // 時間
+    DateTime time;
 };
 
 struct WayPoint{

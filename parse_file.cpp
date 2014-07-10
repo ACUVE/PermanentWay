@@ -9,7 +9,8 @@
 namespace bf = b::filesystem;
 
 b::optional<TrackData> parse_file(s::string const &filename){
-    if(!bf::is_regular_file(filename)) return false;
+    bf::path path(filename);
+    if(!bf::is_regular_file(path)) return b::none;
     
     s::uintmax_t size = bf::file_size(filename);
     s::ifstream ifs(filename);
@@ -17,7 +18,13 @@ b::optional<TrackData> parse_file(s::string const &filename){
         s::unique_ptr<char[]> buff = make_unique<char[]>(size + 1);
         ifs.read(buff.get(), size + 1);
         
-        return parse_GPX(s::move(buff));
+        b::optional<TrackData> trackdata = parse_GPX(s::move(buff));
+        if(!trackdata) return b::none;
+        if(trackdata.get().name.empty()){
+            trackdata.get().name = path.filename().string();
+        }
+        
+        return std::move(trackdata);
     }
     return b::none;
 }
