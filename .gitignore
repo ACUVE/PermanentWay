@@ -6,4 +6,5 @@ permanentway
 Makefile
 CMakeCache.txt
 CMakeFiles/*
+build/*
 *.cmake
