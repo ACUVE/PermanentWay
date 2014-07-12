@@ -28,7 +28,7 @@ public:
         if(!str.empty()){
             oss << str << ": ";
         }
-        oss << (long double)duration() / 1e9L << "s" << s::endl;
+        oss << (long double)duration() / 1e6L << "ms" << s::endl;
     }
 };
 
