@@ -6,7 +6,7 @@
 
 #include "kml.hpp"
 
-#include <thread>
+#include <future>
 
 static
 bool do_main(int argc, char **argv){
@@ -17,20 +17,27 @@ bool do_main(int argc, char **argv){
     }
     Option const &opt = optopt.get();
     
-    s::vector<TrackData> data;
+    StopWatch sw;
+    s::vector<s::future<b::optional<TrackData>>> futures;
     for(auto &&f : opt.files){
         s::cout << f.filename << s::endl;
         
-        StopWatch sw;
-        b::optional<TrackData> tr = parse_file(f.filename);
-        sw.stop(); sw.show(s::string("parse_file(\"") + f.filename + "\")");
+        futures.emplace_back(s::async(s::launch::async, [f = f.filename](){
+            StopWatch sw;
+            scope_exit{sw.stop(); sw.show(s::string("parse_file(\"") + f + "\")");};
+            return parse_file(f);
+        }));
+    }
+    s::vector<TrackData> data;
+    for(auto &&f : futures){
+        b::optional<TrackData> tr = f.get();
         if(!tr){
-            s::cerr << "Err: parse_file(\"" << f.filename << "\") error" << s::endl;
+            s::cerr << "Err: parse_file() error" << s::endl;
             return false;
         }
-        
         data.emplace_back(s::move(tr.get()));
     }
+    sw.stop(); sw.show("load_time");
     
     // stub: 取り敢えず、某GPUロガー互換のログを吐き出してみる
     {
