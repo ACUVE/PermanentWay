@@ -6,5 +6,4 @@
 
 b::optional<TrackData> parse_GPX(s::unique_ptr<char[]>);
 
-
 #endif // ACUVE_GPX_HPP

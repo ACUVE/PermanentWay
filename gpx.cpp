@@ -25,7 +25,7 @@ inline unsigned int numofdate(unsigned int year, unsigned int month){
     // 紀元前のうるう年とかどういうふうなんだろうか
     // そもそもそんな時間の GPS データが存在するはずがないが
     static unsigned int const dateofmonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    unsigned int const dateofthismonth = dateofmonth[month - 1] + (month == 2 && (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)));
+    unsigned int const dateofthismonth = dateofmonth[month - 1] + (month == 2 && DateTime::isLeapYear(year));
     
     return dateofthismonth;
 }
