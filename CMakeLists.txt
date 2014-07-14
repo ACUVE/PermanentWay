@@ -3,7 +3,7 @@ project(PermanentWay)
 
 set (CMAKE_CXX_FLAGS "-Wall")
 set (CMAKE_CXX_FLAGS_DEBUG "-g")
-set (CMAKE_CXX_FLAGS_RELEASE "-O3")
+set (CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG -fomit-frame-pointer")
 
 if(CMAKE_COMPILER_IS_GNUCXX)
     add_definitions(--std=c++11)
