@@ -28,7 +28,11 @@ public:
         if(!str.empty()){
             oss << str << ": ";
         }
+        auto ss  = oss.precision(6);
+        auto f = oss.setf(s::ios_base::fixed, s::ios_base::floatfield);
         oss << (long double)duration() / 1e6L << "ms" << s::endl;
+        oss.precision(ss);
+        oss.setf(f, s::ios_base::floatfield);
     }
 };
 

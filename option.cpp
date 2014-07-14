@@ -37,5 +37,5 @@ b::optional<Option> parse_option(int argc, char **argv){
     
     (void)crr;
     
-    return ret;
+    return s::move(ret);
 }

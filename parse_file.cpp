@@ -6,6 +6,8 @@
 #include "make_unique.hpp"
 #include "gpx.hpp"
 
+#include "stopwatch.hpp"
+
 namespace bf = b::filesystem;
 
 b::optional<TrackData> parse_file(s::string const &filename){
@@ -16,7 +18,9 @@ b::optional<TrackData> parse_file(s::string const &filename){
     s::ifstream ifs(filename);
     if(ifs){
         s::unique_ptr<char[]> buff = make_unique<char[]>(size + 1);
+        StopWatch sw;
         ifs.read(buff.get(), size + 1);
+        sw.stop(); sw.show((filename + " readtime").c_str());
         
         b::optional<TrackData> trackdata = parse_GPX(s::move(buff));
         if(!trackdata) return b::none;
