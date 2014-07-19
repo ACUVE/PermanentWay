@@ -20,8 +20,7 @@
 #include "option.hpp"
 #include "stopwatch.hpp"
 #include "scope_exit.hpp"
-
-#include "kml.hpp"
+#include "write_file.hpp"
 
 #include <future>
 
@@ -66,14 +65,7 @@ bool do_main(int argc, char **argv){
     }
     sw.stop(); sw.show("load_time");
     
-    // stub: 取り敢えず、某GPUロガー互換のログを吐き出してみる
-    {
-        StopWatch sw;
-        write_kml(opt, data);
-        sw.stop();
-        sw.show("write_kml");
-    }
-    
+    write_file(opt, data);
     return true;
 }
 
